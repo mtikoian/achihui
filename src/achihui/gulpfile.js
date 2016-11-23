@@ -58,8 +58,12 @@ gulp.task('setup-vendors-css', function () {
 
 gulp.task('setup-vendors-primeng', function () {
     gulp.src([
-      paths.npm + 'primeng/resources/**/*.*'
+        paths.npm + 'primeng/resources/**/*.*'
     ]).pipe(gulp.dest(lib + 'primeng/resources/'));
+
+    gulp.src([
+      paths.npm + 'primeng/**/*.js'
+    ]).pipe(gulp.dest(lib + 'primeng/'));
 });
 
 gulp.task('setup-vendors-font', function () {

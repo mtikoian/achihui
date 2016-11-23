@@ -5,8 +5,7 @@ import { HttpModule, Http }         from '@angular/http';
 import { AppComponent }             from './app.component';
 import { routing, appRoutingProviders
 } from './app.routing';
-import { TranslateModule, TranslateLoader, TranslateStaticLoader } from "ng2-translate/ng2-translate";
-
+import { MegaMenuModule }           from 'primeng/primeng';
 import { LearnModule }              from './learn/learn.module';
 import { EventModule }              from './event/event.module';
 import { FinanceModule }            from './finance/finance.module';
@@ -35,11 +34,8 @@ import { UIRefModule }              from './uiref.module';
         HttpModule,
         routing,
         UIRefModule,
-        //TranslateModule.forRoot({
-        //    provide: TranslateLoader,
-        //    useFactory: (http: Http) => new TranslateStaticLoader(http, '/app/locales/', '.json'),
-        //    deps: [Http]
-        //}),
+        MegaMenuModule,
+
         EventModule,
         LearnModule,
         FinanceModule
