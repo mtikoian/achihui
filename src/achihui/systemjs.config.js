@@ -40,7 +40,7 @@
             'rxjs': 'lib:rxjs',
             'angular2-in-memory-web-api': 'lib:angular2-in-memory-web-api',
             'moment': 'lib:moment/min/moment.min.js',
-            'ng2-bootstrap': 'lib:ng2-bootstrap',
+            'primeng': 'lib:primeng',
             'ng2-translate': 'lib:ng2-translate',
             'oidc-client': 'lib:oidc-client/dist/oidc-client.min.js',
             'typescript': 'lib:typescript/lib/typescript.js'
@@ -54,7 +54,7 @@
             'rxjs': {
                 defaultExtension: 'js'
             },
-            'ng2-bootstrap': {
+            'primeng': {
                 defaultExtension: 'js'
             },
             'ng2-translate': {

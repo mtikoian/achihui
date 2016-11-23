@@ -39,14 +39,10 @@ gulp.task('setup-vendors-js', function () {
         'zone.js/dist/*.js',
         '@angular/**/*.js',
         'moment/min/*.js',
-        'ng2-bootstrap/**/*.js',
         'ng2-translate/**/*.js',
         'angular2-in-memory-web-api/**/*.js',
         'jquery/dist/jquery*.js',
-        'bootstrap/dist/js/bootstrap*.js',
-        'tether/dist/js/tether*.js',
         'oidc-client/dist/*.js',
-        'alertify.js/dist/js/*.js',
         'typescript/**/*.js'
     ], {
         cwd: "node_modules/**"
@@ -56,53 +52,14 @@ gulp.task('setup-vendors-js', function () {
 
 gulp.task('setup-vendors-css', function () {
     gulp.src([
-      paths.npm + 'tether/dist/css/tether*.css',
-      paths.npm + 'bootstrap/dist/css/bootstrap.css',
       paths.npm + 'font-awesome/css/font-awesome*.css'
     ]).pipe(gulp.dest(paths.cssVendors));
 });
 
-gulp.task('setup-vendors-tinymce', function () {
+gulp.task('setup-vendors-primeng', function () {
     gulp.src([
-      paths.npm + 'tinymce/**/*.js'
-    ]).pipe(gulp.dest(lib + 'tinymce/'));
-
-    gulp.src([
-      paths.npm + 'tinymce/**/*.css'
-    ]).pipe(gulp.dest(lib + 'tinymce/'));
-
-    gulp.src([
-      paths.npm + 'tinymce/**/*.woff'
-    ]).pipe(gulp.dest(lib + 'tinymce/'));
-
-    gulp.src([
-      paths.npm + 'tinymce/**/*.ttf'
-    ]).pipe(gulp.dest(lib + 'tinymce/'));
-});
-
-gulp.task('setup-vendors-fineuploader', function () {
-    gulp.src([
-      paths.npm + 'fine-uploader/fine-uploader/fine-uploader.core.js',
-      paths.npm + 'fine-uploader/fine-uploader/fine-uploader.core.js.map',
-      paths.npm + 'fine-uploader/fine-uploader/fine-uploader.js',
-      paths.npm + 'fine-uploader/fine-uploader/fine-uploader.js.map',
-      paths.npm + 'fine-uploader/fine-uploader/fine-uploader.min.js',
-      paths.npm + 'fine-uploader/fine-uploader/fine-uploader.min.js.map',
-      paths.npm + 'fine-uploader/fine-uploader/fine-uploader-new.css',
-      paths.npm + 'fine-uploader/fine-uploader/fine-uploader-new.min.css',
-      paths.npm + 'fine-uploader/fine-uploader/fine-uploader-new.min.css.map',
-      paths.npm + 'fine-uploader/fine-uploader/fine-uploader-gallery.css',
-      paths.npm + 'fine-uploader/fine-uploader/fine-uploader-gallery.min.css',
-      paths.npm + 'fine-uploader/fine-uploader/fine-uploader-gallery.min.css.map'
-    ]).pipe(gulp.dest(lib + 'fineuploader/'));
-
-    gulp.src([
-      paths.npm + 'fine-uploader/fine-uploader/templates/*.html'
-    ]).pipe(gulp.dest(lib + 'fineuploader/templates/'));
-
-    gulp.src([
-      paths.npm + 'fine-uploader/fine-uploader/placeholders/*.png'
-    ]).pipe(gulp.dest(lib + 'fineuploader/placeholders/'));
+      paths.npm + 'primeng/resources/**/*.*'
+    ]).pipe(gulp.dest(lib + 'primeng/resources/'));
 });
 
 gulp.task('setup-vendors-font', function () {
@@ -116,7 +73,7 @@ gulp.task('setup-vendors-font', function () {
     ]).pipe(gulp.dest(paths.fontsVendors));
 });
 
-gulp.task('setup-vendors', ['setup-vendors-js', 'setup-vendors-css', 'setup-vendors-font', 'setup-vendors-tinymce']);
+gulp.task('setup-vendors', ['setup-vendors-js', 'setup-vendors-css', 'setup-vendors-font', 'setup-vendors-primeng']);
 
 gulp.task('setup-environment', function (done) {
     gulp.src([

@@ -5,7 +5,6 @@ import { HttpModule, Http }         from '@angular/http';
 import { AppComponent }             from './app.component';
 import { routing, appRoutingProviders
 } from './app.routing';
-import { Ng2BootstrapModule }       from 'ng2-bootstrap/ng2-bootstrap';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from "ng2-translate/ng2-translate";
 
 import { LearnModule }              from './learn/learn.module';
@@ -35,7 +34,6 @@ import { UIRefModule }              from './uiref.module';
         FormsModule,
         HttpModule,
         routing,
-        Ng2BootstrapModule,
         UIRefModule,
         //TranslateModule.forRoot({
         //    provide: TranslateLoader,
