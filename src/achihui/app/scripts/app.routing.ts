@@ -9,7 +9,7 @@ import { unauthorizedRoutes }   from './unauthorized/unauthorized.routing';
 const mainRoutes: Routes = [
     {
         path: '',
-        redirectTo: '/home',
+        redirectTo: '/home/default',
         pathMatch: 'full'
     },
     {

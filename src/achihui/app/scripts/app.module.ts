@@ -23,6 +23,7 @@ import { AuthService }              from './services/auth.service';
 import { UtilService }              from './services/util.service';
 import { UserService }              from './services/user.service';
 import { HomeComponent }            from './home/home.component';
+import { HomeDefaultComponent }     from './home/home.default.component';
 import { LanguageComponent }        from './home/language.component';
 import { ModuleComponent }          from './home/module.component';
 import { UserDetailComponent }      from './home/user.detail.component';
@@ -47,11 +48,11 @@ import { UIRefModule }              from './uiref.module';
         FinanceModule
     ],
     declarations: [
-
         AppComponent,
         CreditsComponent,
         AboutComponent,
         HomeComponent,
+        HomeDefaultComponent,
         LanguageComponent,
         ModuleComponent,
         UserDetailComponent,

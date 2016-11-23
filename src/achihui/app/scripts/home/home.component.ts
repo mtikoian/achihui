@@ -3,7 +3,7 @@ import { DebugLogging } from '../app.setting';
 
 @Component({
     selector: 'hih-app-home',
-    templateUrl: 'app/views/home/home.html'
+    template: `<div class="container"><router-outlet></router-outlet></div>`
 })
 
 export class HomeComponent implements OnInit, OnDestroy {

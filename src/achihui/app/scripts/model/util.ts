@@ -40,28 +40,59 @@ export class UIPagination {
 
     private workOut() : void {
         if (this._totalItems === 0) {
+            this._totalPages = 0;
+
             this.visPags = [];
-            this.currentPage = 0;
+            return;
+        }
+
+        if (this._currentPage === 0)
+            return;
+
+        this._totalPages = Math.ceil(this._totalItems / this._itemsPerPage);
+        this.visPags = [];
+
+        let startPage = this.currentPage;
+        if (this._totalPages - this.currentPage > this._maxVisualPage) {
+            startPage = Math.min(this.currentPage, this._totalPages - this._maxVisualPage);
+        }
+
+        for (let idx = startPage; idx <= this._totalPages; idx++) {
+            this.visPags.push(idx);
         }
     }
 
-    public isFirstVisible(): boolean {
+    get isFirstVisible(): boolean {
         return this.currentPage > 1;
     }
-    public isLastVisible(): boolean {
-        return true;
+    get isLastVisible(): boolean {
+        return this.currentPage < this._totalPages;
     }
-    public isNextVisible(): boolean {
-        return true;
+    get isNextVisible(): boolean {
+        return this.currentPage < this._totalPages;
     }
-    public isPreviousVisible(): boolean {
-        return true;
+    get isPreviousVisible(): boolean {
+        return this.currentPage > 1;
     }
 
-    public getNextAPIString(): string {
-        return "";
+    get nextAPIString(): string {
+        if (this._currentPage === 0)
+            return "";
+
+        let skipamt = (this.currentPage - 1) * this._itemsPerPage;
+        if (skipamt === 0)
+            return "?top=" + this._itemsPerPage;
+
+        return "?top=" + this._itemsPerPage + "&skip=" + skipamt;
     }
-    public getPreviousAPIString(): string {
-        return "";
+    get previousAPIString(): string {
+        if (this._totalItems === 0 || this._currentPage < 2)
+            return "";
+
+        let skipamt = (this.currentPage - 2) * this._itemsPerPage;
+        if (skipamt === 0)
+            return "?top=" + this._itemsPerPage;
+
+        return "?top=" + this._itemsPerPage + "&skip=" + skipamt;
     }
 }

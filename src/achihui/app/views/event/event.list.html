@@ -70,14 +70,16 @@
                 <td colspan="6">
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
-                            <li class="page-item" *ngIf="currentPage > 1">
+                            <li class="page-item" *ngIf="objUtil.isPreviousVisible">
                                 <a class="page-link" (click)="onPagePreviousClick()" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Previous</span>
                                 </a>
                             </li>
-                            <li class="page-item" *ngFor="let pageidx of pageArrays"><a class="page-link" (click)="onPageClick(pageidx)">{{pageidx}}</a></li>
-                            <li class="page-item" *ngIf="currentPage < pageCount">
+                            <li class="page-item" *ngFor="let pageidx of objUtil.visPags">
+                                <a class="page-link" (click)="onPageClick(pageidx)">{{pageidx}}</a>
+                            </li>
+                            <li class="page-item" *ngIf="objUtil.isNextVisible">
                                 <a class="page-link" (click)="onPageNextClick()" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Next</span>
