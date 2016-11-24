@@ -24,7 +24,6 @@ export class ObjectDetailComponent implements OnInit, OnDestroy {
     public ActivityID: HIHCommon.UIMode = HIHCommon.UIMode.Create;
     private routerId: number;
 
-    private subObject: Subscription = null;
     private subCtgy: Subscription;
 
     constructor(
@@ -140,44 +139,56 @@ export class ObjectDetailComponent implements OnInit, OnDestroy {
         console.log($event);
     }
 
-    private registerObject() {
-        if (!this.subObject) {
-            this.subObject = this.learnService.objectdetail$.subscribe(
-                data => {
-                    this.dialogService.log("Object created/changed successfully!");
-                },
-                error => {
-                    this.dialogService.log("Object created/changed failed!");
-                },
-                () => {
-                    this.unregisterObject();
-                }
-            )
-        }
-    }
-
-    private unregisterObject() {
-        if (this.subObject) {
-            this.subObject.unsubscribe();
-            this.subObject = null;
-        }
-    }
-
     onSubmit($event) {
         if (DebugLogging) {
             console.log("Entering onSubmit of Learn.ObjectDetailComponent");
         }
 
         // Perform the checks on the UI
-        this.registerObject();
         if (this.ActivityID === HIHCommon.UIMode.Create) {
-            this.learnService.createObject(this.lrnObject);
-        } else if (this.ActivityID === HIHCommon.UIMode.Change) {
+            this.learnService.createObject(this.lrnObject).subscribe(data => {
+                if (DebugLogging) {
+                    console.log("Object created: " + data);
+                }
 
+                this.zone.run(() => {
+                    this.lrnObject.onSetData(data);
+                    this.ActivityID = HIHCommon.UIMode.Display;
+                    this.Activity = "Common.Display";
+                });
+            }, error => {
+                if (DebugLogging) {
+                    console.log("Object created failed: " + error);
+                }
+            }, () => {
+                if (DebugLogging) {
+                    console.log("Object created completed");
+                }
+            });
+        } else if (this.ActivityID === HIHCommon.UIMode.Change) {
+            this.learnService.changeObject(this.lrnObject).subscribe(data => {
+                if (DebugLogging) {
+                    console.log("Object changed: " + data);
+                }
+
+                this.zone.run(() => {
+                    this.lrnObject.onSetData(data);
+                    this.ActivityID = HIHCommon.UIMode.Display;
+                    this.Activity = "Common.Display";
+                });
+            }, error => {
+                if (DebugLogging) {
+                    console.log("Object change failed: " + error);
+                }
+            }, () => {
+                if (DebugLogging) {
+                    console.log("Object changed completed");
+                }
+            });
         }
     }
 
     onClose($event) {
-
+        this.router.navigate(['/learn/object/list', null]);
     }
 }
