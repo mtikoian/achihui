@@ -7,6 +7,7 @@ import { Subscription }             from 'rxjs/Subscription';
 import '../rxjs-operators';
 import { DebugLogging }             from '../app.setting';
 import * as HIHLearn                from '../model/learn';
+import * as HIHUtil                 from '../model/util';
 import { LearnService }             from '../services/learn.service';
 import { DialogService }            from '../services/dialog.service';
 import { AuthService }              from '../services/auth.service';
@@ -17,9 +18,7 @@ import { AuthService }              from '../services/auth.service';
 })
 export class ObjectListComponent implements OnInit, OnDestroy {
     public lrnObjects: Array<HIHLearn.LearnObject> = [];
-    private subObject: Subscription;
-    public totalCount: number;
-    public currentPage: number;
+    public objUtil: HIHUtil.UIPagination = null;
 
     constructor(
         private zone: NgZone,
@@ -31,6 +30,8 @@ export class ObjectListComponent implements OnInit, OnDestroy {
         if (DebugLogging) {
             console.log("Entering constructor of Learn.ObjectListComponent");
         }
+
+        this.objUtil = new HIHUtil.UIPagination(3, 5);
     }
 
     ngOnInit() {
@@ -38,36 +39,69 @@ export class ObjectListComponent implements OnInit, OnDestroy {
             console.log("Entering ngOnInit of Learn.ObjectListComponent");
         }
 
-        if (!this.subObject) {
-            this.subObject = this.learnService.object$.subscribe(data => this.getObjectList(data),
-                error => this.handleError(error));
-
-            this.learnService.loadObjects().subscribe(data => {
-            }, error => {
-            }, () => {
-            });
-        }
+        this.onPageClick(1);
     }
 
     ngOnDestroy() {
         if (DebugLogging) {
             console.log("Entering ngOnDestroy of Learn.ObjectListComponent");
         }
+    }
 
-        if (this.subObject) {
-            this.subObject.unsubscribe();
-            this.subObject = null;
+    onPagePreviousClick() {
+        if (DebugLogging) {
+            console.log("Entering onPagePreviousClick of Learn.ObjectListComponent");
+        }
+
+        if (this.objUtil.currentPage > 1) {
+            this.onPageClick(this.objUtil.currentPage - 1);
         }
     }
 
-    getObjectList(data: Array<HIHLearn.LearnObject>) {
+    onPageNextClick() {
         if (DebugLogging) {
-            console.log("Entering getObjectList of Learn.ObjectListComponent");
+            console.log("Entering onPageNextClick of Learn.ObjectListComponent");
         }
 
-        this.zone.run(() => {
-            this.lrnObjects = data;
-        });
+        this.onPageClick(this.objUtil.currentPage + 1);
+    }
+
+    onPageClick(pageIdx: number) {
+        if (DebugLogging) {
+            console.log("Entering onPageClick of Learn.ObjectListComponent");
+        }
+
+        if (this.objUtil.currentPage != pageIdx) {
+            this.objUtil.currentPage = pageIdx;
+
+            let paraString = this.objUtil.nextAPIString;
+            this.learnService.loadObjects(paraString).subscribe(data => {
+                if (DebugLogging) {
+                    console.log("Objects loaded successfully of Learn.ObjectListComponent");
+                }
+
+                this.objUtil.totalCount = data.totalCount;
+                this.zone.run(() => {
+                    this.lrnObjects = [];
+                    if (data && data.contentList && data.contentList instanceof Array) {
+                        for (let cl of data.contentList) {
+                            let ei = new HIHLearn.LearnObject();
+                            ei.onSetData(cl);
+                            this.lrnObjects.push(ei);
+                        }
+                    }
+                });
+            }, error => {
+                if (DebugLogging) {
+                    console.log("Error occurred during objects loading of Learn.ObjectListComponent");
+                    console.log(error);
+                }
+            }, () => {
+                if (DebugLogging) {
+                    console.log("Objects loaded completed of Learn.ObjectListComponent");
+                }
+            });
+        }
     }
 
     handleError(error: any) {

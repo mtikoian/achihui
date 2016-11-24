@@ -111,7 +111,7 @@ export class LearnService {
     }
 
     // Objects
-    loadObjects() {
+    loadObjects(parString: string) {
         if (DebugLogging) {
             console.log("Entering loadObjects of LearnService");
         }
@@ -121,7 +121,7 @@ export class LearnService {
         if (this.authService.authSubject.getValue().isAuthorized)
             headers.append('Authorization', 'Bearer ' + this.authService.authSubject.getValue().getAccessToken());
 
-        return this.http.get(this.apiObject, { headers: headers })
+        return this.http.get(this.apiObject + parString, { headers: headers })
             .map(response => response.json())
             .catch(this.handleError);
     }

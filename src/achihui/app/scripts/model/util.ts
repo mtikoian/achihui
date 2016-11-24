@@ -53,8 +53,12 @@ export class UIPagination {
         this.visPags = [];
 
         let startPage = this.currentPage;
-        if (this._totalPages - this.currentPage > this._maxVisualPage) {
-            startPage = Math.min(this.currentPage, this._totalPages - this._maxVisualPage);
+        if (this._totalPages - this.currentPage < this._maxVisualPage) {
+            if (this._totalPages < this._maxVisualPage) {
+                startPage = 1;
+            } else {
+                startPage = Math.min(this.currentPage, this._totalPages - this._maxVisualPage + 1);
+            }
         }
 
         for (let idx = startPage; idx <= this._totalPages; idx++) {

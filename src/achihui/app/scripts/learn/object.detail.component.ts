@@ -61,25 +61,33 @@ export class ObjectDetailComponent implements OnInit, OnDestroy {
         //    });
         this.route.url.forEach(value => {
             if (DebugLogging) {
-                console.log(value);
+                console.log("Route URL is: " + value);
             }
         });
+
         if (this.route.data) {
             if (DebugLogging) {
-                console.log(this.route.data);
+                console.log("Route data is: " + this.route.data);
             }
-            this.ActivityID = +this.route.data['uimode'];
+            
+            this.ActivityID = +this.route.data['value']['uimode'];
+            if (DebugLogging) {
+                console.log("Activity ID is: " + this.ActivityID);
+            }
         }
 
         this.lrnObject = new HIHLearn.LearnObject();
         if (this.ActivityID === HIHCommon.UIMode.Create) {
             this.Activity = "Common.Create";
-        } else {
+        } else if (this.ActivityID) {
             this.route.params.forEach((next: { id: number }) => {
                 aid = next.id;
             });
             if (aid !== -1 && aid != this.routerId) {
                 this.routerId = aid;
+            }
+            if (DebugLogging) {
+                console.log("Router ID is " + this.routerId);
             }
 
             if (this.ActivityID === HIHCommon.UIMode.Change) {
@@ -90,7 +98,7 @@ export class ObjectDetailComponent implements OnInit, OnDestroy {
                     });
                 });
             }
-            else {
+            else if (this.ActivityID === HIHCommon.UIMode.Display) {
                 this.Activity = "Common.Display";
                 this.learnService.loadObject(this.routerId).subscribe(data => {
                     this.zone.run(() => {
@@ -167,5 +175,9 @@ export class ObjectDetailComponent implements OnInit, OnDestroy {
         } else if (this.ActivityID === HIHCommon.UIMode.Change) {
 
         }
+    }
+
+    onClose($event) {
+
     }
 }
