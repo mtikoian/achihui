@@ -18,6 +18,9 @@ export class EventItem extends hih.BaseModel {
         if (DebugLogging) {
             console.log("Entering constructor of EventItem");
         }
+
+        this.StartTimepoint = new Date();
+        this.EndTimepoint = new Date();
     }
 
     public onInit() {
@@ -60,10 +63,10 @@ export class EventItem extends hih.BaseModel {
             this.Name = data.name;
         }
         if (data && data.startTimePoint) {
-            this.StartTimepoint = data.startTimePoint;
+            this.StartTimepoint = new Date(data.startTimePoint);
         }
         if (data && data.endTimePoint) {
-            this.EndTimepoint = data.endTimePoint;
+            this.EndTimepoint = new Date(data.endTimePoint);
         }
         if (data && data.content) {
             this.Content = data.content;

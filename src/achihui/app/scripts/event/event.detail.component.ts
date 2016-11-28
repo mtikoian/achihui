@@ -41,55 +41,51 @@ export class EventDetailComponent implements OnInit, OnDestroy {
             console.log("Entering ngOnInit of Learn.EventDetailComponent");
         }
 
-        this.eventObject = new HIHEvent.EventItem();
-        this.eventObject.StartTimepoint = new Date();
-        this.eventObject.EndTimepoint = new Date();
-
-        //let aid: number = -1;
-        ////this.route.params
-        ////    .switchMap((params: Params) => {
-        ////        this.routerId = +params['id'];
-        ////    });
-        //this.route.url.forEach(value => {
-        //    if (DebugLogging) {
-        //        console.log(value);
-        //    }
-        //});
-        //if (this.route.data) {
-        //    if (DebugLogging) {
-        //        console.log(this.route.data);
-        //    }
-        //    this.ActivityID = +this.route.data['uimode'];
-        //}
-
-        //this.lrnObject = new HIHLearn.LearnObject();
-        //if (this.ActivityID === HIHCommon.UIMode.Create) {
-        //    this.Activity = "Common.Create";
-        //} else {
-        //    this.route.params.forEach((next: { id: number }) => {
-        //        aid = next.id;
+        let aid: number = -1;
+        //this.route.params
+        //    .switchMap((params: Params) => {
+        //        this.routerId = +params['id'];
         //    });
-        //    if (aid !== -1 && aid != this.routerId) {
-        //        this.routerId = aid;
-        //    }
+        this.route.url.forEach(value => {
+            if (DebugLogging) {
+                console.log(value);
+            }
+        });
+        if (this.route.data) {
+            if (DebugLogging) {
+                console.log(this.route.data);
+            }
+            this.ActivityID = +this.route.data['uimode'];
+        }
 
-        //    if (this.ActivityID === HIHCommon.UIMode.Change) {
-        //        this.Activity = "Common.Change";
-        //        this.learnService.loadObject(this.routerId).subscribe(data => {
-        //            this.zone.run(() => {
-        //                this.lrnObject.onSetData(data);
-        //            });
-        //        });
-        //    }
-        //    else {
-        //        this.Activity = "Common.Display";
-        //        this.learnService.loadObject(this.routerId).subscribe(data => {
-        //            this.zone.run(() => {
-        //                this.lrnObject.onSetData(data);
-        //            });
-        //        });
-        //    }
-        //}
+        this.eventObject = new HIHEvent.EventItem();
+        if (this.ActivityID === HIHCommon.UIMode.Create) {
+            this.Activity = "Common.Create";
+        } else {
+            this.route.params.forEach((next: { id: number }) => {
+                aid = next.id;
+            });
+            if (aid !== -1 && aid != this.routerId) {
+                this.routerId = aid;
+            }
+
+            if (this.ActivityID === HIHCommon.UIMode.Change) {
+                this.Activity = "Common.Change";
+                this.eventService.loadEvent(this.routerId).subscribe(data => {
+                    this.zone.run(() => {
+                        this.eventObject.onSetData(data);
+                    });
+                });
+            }
+            else {
+                this.Activity = "Common.Display";
+                this.eventService.loadEvent(this.routerId).subscribe(data => {
+                    this.zone.run(() => {
+                        this.eventObject.onSetData(data);
+                    });
+                });
+            }
+        }
     }
 
     ngOnDestroy() {

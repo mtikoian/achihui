@@ -125,6 +125,7 @@ export class LearnService {
             .map(response => response.json())
             .catch(this.handleError);
     }
+
     loadObject(objid: number) {
         if (DebugLogging) {
             console.log("Entering loadObject of LearnService");
@@ -139,6 +140,7 @@ export class LearnService {
             .map(response => response.json())
             .catch(this.handleError);
     }
+
     createObject(objData: HIHLearn.LearnObject) {
         if (DebugLogging) {
             console.log("Entering createObject of LearnService");
@@ -156,6 +158,7 @@ export class LearnService {
         return this.http.post(this.apiObject, dataJSON, { headers: headers })
             .map(response => response.json());
     }
+
     changeObject(objData: HIHLearn.LearnObject) {
         if (DebugLogging) {
             console.log("Entering createObject of LearnService");
@@ -173,6 +176,7 @@ export class LearnService {
         return this.http.put(this.apiObject, dataJSON, { headers: headers })
             .map(response => response.json());
     }
+
     private extractObjectData(res: Response) {
         if (DebugLogging) {
             console.log("Entering extractObjectData of LearnService");

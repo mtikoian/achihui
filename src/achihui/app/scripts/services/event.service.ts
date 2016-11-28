@@ -41,6 +41,20 @@ export class EventService {
             .map(response => response.json());
     }
 
+    loadEvent(eid: number) {
+        if (DebugLogging) {
+            console.log("Entering loadEvent of EventService: " + eid.toString());
+        }
+
+        var headers = new Headers();
+        headers.append('Accept', 'application/json');
+        if (this.authService.authSubject.getValue().isAuthorized)
+            headers.append('Authorization', 'Bearer ' + this.authService.authSubject.getValue().getAccessToken());
+
+        return this.http.get(this.apiURL + '/' + eid.toString(), { headers: headers })
+            .map(response => response.json());
+    }
+
     createEvent(objData: HIHEvent.EventItem) {
         if (DebugLogging) {
             console.log("Entering createEvent of EventService");
