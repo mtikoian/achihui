@@ -2,7 +2,6 @@
 import { FormsModule }      from '@angular/forms';
 import { CommonModule }     from '@angular/common';
 import { HttpModule, Http } from '@angular/http';
-import { TranslateModule, TranslateLoader, TranslateStaticLoader } from "ng2-translate/ng2-translate";
 import { UIRefModule }      from '../uiref.module';
 
 import { EventService } from '../services/event.service';
@@ -17,11 +16,6 @@ import { eventRouting }   from './event.routing';
         CommonModule,
         FormsModule,
         UIRefModule,
-        //TranslateModule.forRoot({
-        //    provide: TranslateLoader,
-        //    useFactory: (http: Http) => new TranslateStaticLoader(http, '/app/locales/', '.json'),
-        //    deps: [Http]
-        //}),
         eventRouting        
     ],
     declarations: [

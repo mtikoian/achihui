@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService }                  from './services/auth.service';
-import { TranslateService }             from 'ng2-translate/ng2-translate';
+import { TranslateService }             from 'ng2-translate';
 import { environment, DebugLogging }    from './app.setting';
 import { UserService }                  from './services/user.service';
 import { BufferService }                from './services/buffer.service';

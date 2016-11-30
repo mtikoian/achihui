@@ -38,10 +38,9 @@
 
             // other libraries
             'rxjs': 'lib:rxjs',
-            'angular2-in-memory-web-api': 'lib:angular2-in-memory-web-api',
             'moment': 'lib:moment/min/moment.min.js',
             'ng2-bootstrap': 'lib:ng2-bootstrap',
-            'ng2-translate': 'lib:ng2-translate',
+            'ng2-translate': 'lib:ng2-translate/bundles',
             'oidc-client': 'lib:oidc-client/dist/oidc-client.min.js',
             'typescript': 'lib:typescript/lib/typescript.js'
         },
@@ -58,9 +57,7 @@
                 defaultExtension: 'js'
             },
             'ng2-translate': {
-                defaultExtension: 'js'
-            },
-            'angular2-in-memory-web-api': {
+                main: './index.js',
                 defaultExtension: 'js'
             }
         }

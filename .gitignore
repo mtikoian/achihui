@@ -255,3 +255,6 @@ typings/
 /src/achihui/wwwroot/logoutcallback.html
 /src/achihui/wwwroot/systemjs.config.js
 /src/achihui/wwwroot/favicon.ico
+
+# Publish folder
+PublishProfiles/

@@ -2,7 +2,6 @@
 import { FormsModule }      from '@angular/forms';
 import { CommonModule }     from '@angular/common';
 import { HttpModule, Http } from '@angular/http';
-import { TranslateModule, TranslateLoader, TranslateStaticLoader } from "ng2-translate/ng2-translate";
 import { PaginationModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { UIRefModule } from '../uiref.module';
@@ -31,11 +30,6 @@ import { PlanDetailComponent } from './plan.detail.component';
         FormsModule,
         PaginationModule,
         UIRefModule,
-        //TranslateModule.forRoot({
-        //    provide: TranslateLoader,
-        //    useFactory: (http: Http) => new TranslateStaticLoader(http, '/app/locales/', '.json'),
-        //    deps: [Http]
-        //}),
         learnRouting
     ],
     declarations: [
